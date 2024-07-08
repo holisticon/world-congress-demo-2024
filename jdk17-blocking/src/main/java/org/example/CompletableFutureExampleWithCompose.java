@@ -1,10 +1,8 @@
 package org.example;
 
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
 
-@Slf4j
 public class CompletableFutureExampleWithCompose {
 
     public static void main(String[] args) {
@@ -12,7 +10,7 @@ public class CompletableFutureExampleWithCompose {
                 .thenCompose(newAge -> increaseAge(newAge, 1))
                 .thenCompose(newerAge -> increaseAge(newerAge, 1))
                 .thenCompose(evenNewerAge -> increaseAge(evenNewerAge, 3))
-                .thenAccept(veryOldAge -> log.info("finally {}", veryOldAge))
+                .thenAccept(veryOldAge -> System.out.printf("finally %s", veryOldAge))
                 .join();
     }
 

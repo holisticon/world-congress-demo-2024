@@ -1,12 +1,9 @@
 package org.example;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Slf4j
 public class CompletableFutureExampleWithApply {
 
     private static final ExecutorService executor = Executors.newCachedThreadPool();
@@ -16,7 +13,7 @@ public class CompletableFutureExampleWithApply {
                 .thenApply(newAge -> increaseAge(newAge, 1)
                         .thenApply(newerAge -> increaseAge(newerAge, 1)
                                 .thenApply(evenNewerAge -> increaseAge(evenNewerAge, 3)
-                                        .thenAccept(veryOldAge -> log.info("finally {}", veryOldAge))
+                                        .thenAccept(veryOldAge -> System.out.printf("finally %s", veryOldAge))
                                         .join())
                                 .join())
                         .join())
@@ -24,7 +21,7 @@ public class CompletableFutureExampleWithApply {
     }
 
     public static CompletableFuture<Integer> increaseAge(int initialAge, int ageDifference) {
-        log.info("Thread {}", Thread.currentThread().getName());
+        System.out.printf("Thread %s", Thread.currentThread().getName());
         return CompletableFuture.supplyAsync(() -> initialAge + ageDifference, executor);
     }
 

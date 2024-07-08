@@ -1,10 +1,7 @@
 package org.example;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.function.Function;
 
-@Slf4j
 public class CallbackHell {
 
     public static void main(String[] args) {
@@ -14,12 +11,14 @@ public class CallbackHell {
                                 (evenNewerAge) -> increaseAge(evenNewerAge, 3,
                                         (veryOldAge) -> veryOldAge))));
 
-        log.info("finally {}", increasedAge);
+        System.out.printf("finally %s", increasedAge);
 
 
     }
 
-    public static Integer increaseAge(int initialAge, int ageDifference, Function<Integer, Integer> callbackFunction) {
+    public static Integer increaseAge(final int initialAge,
+                                      final int ageDifference,
+                                      final Function<Integer, Integer> callbackFunction) {
         int newAge = initialAge + ageDifference;
         return callbackFunction.apply(newAge);
     }
