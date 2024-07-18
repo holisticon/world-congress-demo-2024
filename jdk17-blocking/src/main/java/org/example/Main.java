@@ -10,11 +10,14 @@ public class Main {
         try {
             final var executor = newCachedThreadPool();
 
+
+            // ########################################################################################################
+
             for (int i = 0; i <= 1_000_000; i++) {
-                int num = i;
+                int number = i;
                 executor.submit(() -> {
                     try {
-                        System.out.printf("Thread %s no %s\n", Thread.currentThread().getName(), num);
+                        System.out.printf("Thread %s no %s\n", Thread.currentThread().getName(), number);
 
                         Thread.sleep(10_000);
                     } catch (final InterruptedException e) {
@@ -22,6 +25,8 @@ public class Main {
                     }
                 });
             }
+
+            // ########################################################################################################
 
             executor.shutdown();
 

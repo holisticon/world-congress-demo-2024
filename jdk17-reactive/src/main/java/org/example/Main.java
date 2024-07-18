@@ -12,8 +12,8 @@ public class Main {
         Flux.range(0, 1_000_000)
                 .parallel(1_000)
                 .runOn(Schedulers.boundedElastic())
-                .doOnNext(num -> System.out.printf("Thread %s no %s\n", Thread.currentThread().getName(), num))
-                .flatMap(num -> Mono.just(num).delayElement(Duration.of(10_000, ChronoUnit.MILLIS)))
+                .doOnNext(number -> System.out.printf("Thread %s no %s\n", Thread.currentThread().getName(), number))
+                .flatMap(number -> Mono.just(number).delayElement(Duration.of(10_000, ChronoUnit.MILLIS)))
                 .sequential()
                 .doOnComplete(() -> System.out.print("done\n"))
                 .blockLast();
