@@ -12,10 +12,10 @@ public class Main {
         Flux.range(0, 1_000_000)
                 .parallel(1_000)
                 .runOn(Schedulers.boundedElastic())
-                .doOnNext(number -> System.out.printf("Thread %s no %s\n", Thread.currentThread().getName(), number))
+                .doOnNext(number -> System.out.printf("Thread %s count %s\n", Thread.currentThread().getId(), number))
                 .flatMap(number -> Mono.just(number).delayElement(Duration.of(10_000, ChronoUnit.MILLIS)))
                 .sequential()
-                .doOnComplete(() -> System.out.print("done\n"))
+                .doOnComplete(() -> System.out.println(">>>>> done !!!"))
                 .blockLast();
     }
 }

@@ -10,10 +10,11 @@ fun blocking() {
     runBlocking {
         (0..1_000_000).forEach {  // launch a lot of coroutines
             launch {
-                println("Thread ${Thread.currentThread().name} no ${it} ")
+                println("Thread ${Thread.currentThread().name} count ${it} ")
                 delay(10_000L)
             }
         }
     }
+    println(">>>>> done !!!")
 }
 

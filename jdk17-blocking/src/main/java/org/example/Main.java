@@ -6,18 +6,15 @@ import static java.util.concurrent.Executors.newCachedThreadPool;
 
 public class Main {
     public static void main(String[] args) {
-
         try {
             final var executor = newCachedThreadPool();
-
-
             // ########################################################################################################
 
             for (int i = 0; i <= 1_000_000; i++) {
                 int number = i;
                 executor.submit(() -> {
                     try {
-                        System.out.printf("Thread %s no %s\n", Thread.currentThread().getName(), number);
+                        System.out.printf("Thread %s counted %s\n", Thread.currentThread().getId(), number);
 
                         Thread.sleep(10_000);
                     } catch (final InterruptedException e) {
@@ -27,15 +24,12 @@ public class Main {
             }
 
             // ########################################################################################################
-
             executor.shutdown();
-
             final var terminated = executor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
-            System.out.printf("done %s\n", terminated);
+            System.out.println(">>>>> done !!!\n");
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
-
 }
